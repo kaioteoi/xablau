@@ -9,13 +9,13 @@ CURRENT_PHASE = ('final_details', 'set_up', 'finishments', 'ready_to_move', 'dem
 class Place(models.Model):
     # Not database id, but what the Loft API gives us
     # Use this to find the apartment in their system if you want to.
-    place_id = models.CharField(max_length=20, unique=True)
+    place_id = models.CharField(max_length=20)
 
     status = models.CharField(max_length=50)
 
     # What the Loft API gives us
     # Use this to find the apartment in their system if you want to.
-    unit_id = models.IntegerField(unique=True)
+    unit_id = models.IntegerField()
 
     bedrooms = models.IntegerField()
 
