@@ -11,7 +11,7 @@ class Place(models.Model):
     # Use this to find the apartment in their system if you want to.
     place_id = models.CharField(max_length=20, unique=True)
 
-    status = models.CharField(choices=STATUS_CHOICES)
+    status = models.CharField(max_length=50)
 
     # What the Loft API gives us
     # Use this to find the apartment in their system if you want to.
@@ -32,7 +32,7 @@ class Place(models.Model):
     price = models.IntegerField()
 
     description = models.CharField(max_length=1024)
-    current_phase = models.CharField(choices=CURRENT_PHASE)
+    current_phase = models.CharField(max_length=50)
 
     # 'Sim' or 'Não'
     # has_balcony = models.CharField(max_length=20)
