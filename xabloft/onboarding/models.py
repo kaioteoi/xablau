@@ -40,18 +40,18 @@ class Place(models.Model):
     # has_lavatory = models.CharField(max_length=20)
 
     # Amenities
-    power_generator = models.BooleanField()
-    gourmet = models.BooleanField()
-    green_area = models.BooleanField()
-    grill = models.BooleanField()
-    gym = models.BooleanField()
-    heated_pool = models.BooleanField()
-    kids = models.BooleanField()
-    party_room = models.BooleanField()
-    play_game = models.BooleanField()
-    playground = models.BooleanField()
-    pool = models.BooleanField()
-    court = models.BooleanField()  # Sports Court
+    has_power_generator = models.BooleanField()
+    has_gourmet = models.BooleanField()
+    has_green_area = models.BooleanField()
+    has_grill = models.BooleanField()
+    has_gym = models.BooleanField()
+    has_heated_pool = models.BooleanField()
+    has_kids = models.BooleanField()
+    has_party_room = models.BooleanField()
+    has_play_game = models.BooleanField()
+    has_playground = models.BooleanField()
+    has_pool = models.BooleanField()
+    has_court = models.BooleanField()  # Sports Court
 
     # Address
     # Full address would be like: type + name
