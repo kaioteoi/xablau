@@ -84,15 +84,10 @@ class Form extends React.Component {
 
 	handleSearch = () => {
     const { location, distance } = this.state;
-    axios.post('http://localhost:8000/api/onboarding/', {
-      location, distance
-    })
-      .then((resp) => {
-        this.setState({ data: resp.data })
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+
+    window.localStorage.setItem('onboarding', JSON.stringify({ location, distance }));
+
+    this.setState({ done: true });
 	};
 
 	handleBack = () => {
@@ -105,19 +100,24 @@ class Form extends React.Component {
 		this.setState({ [input]: e.target.value });
 	};
 
+  componentDidMount() {
+    const data = JSON.parse(localStorage.getItem('onboarding'))
+
+    if (data) {
+      this.setState({ done: true })
+    }
+  }
+
 	render() {
 		const { classes } = this.props;
-		const { data, activeStep } = this.state;
+		const { done, activeStep } = this.state;
 		const { location, distance } = this.state;
 		const values = { location, distance };
 
 		return (
 			<React.Fragment>
-        {data && (
-          <Redirect to={{
-            pathname: '/matcher',
-            state: { data }
-          }} />
+        {done && (
+          <Redirect to="/matcher" />
         )}
 				<AppBar position="absolute" color="default" className={classes.appBar}>
 					<Toolbar>
