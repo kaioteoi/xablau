@@ -57,7 +57,7 @@ def populate_photo():
 
     apartments = apartments['listings']
     for apartment in apartments:
-        place = Place.objects.filter(apartment['id']).last()
+        place = Place.objects.filter(place_id=apartment['id']).last()
         for key, image_array in apartment['images'].items():
             for image in image_array:
                 Photo.objects.create(
