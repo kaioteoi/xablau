@@ -2,6 +2,7 @@ from django.core import serializers
 from django.shortcuts import render
 from django.core import serializers
 from django.http import HttpResponse
+from django.forms.models import model_to_dict
 from django.views.decorators.csrf import csrf_exempt
 from onboarding.models import Saved, Place
 import json
@@ -32,11 +33,17 @@ def onboarding_submission(request):
             places = []
             for p in Place.objects.filter(status__in=['FOR_SALE', 'JUST_LISTED']):
                 coords_2 = (p.lat, p.lng)
-                dist = geopy.distance.geodesic(coords_1, coords_2).km * 10
+                dist = geopy.distance.geodesic(coords_1, coords_2).km * 12
                 if dist <= max_dist:
-                    places.append(p)
+                    place = model_to_dict(p)
+                    place['distance'] = dist
+                    # TODO: need to order accordingly with user taste
+                    place['photos'] = [photo.get_formatted_url()
+                                       for photo in Place.objects.last().photo.all()]
+                    places.append(place)
 
-    return HttpResponse(serializers.serialize('json', places))
+    places = sorted(places, key = lambda i: i['distance'])
+    return HttpResponse(json.dumps(places))
 
 
 @csrf_exempt
@@ -52,8 +59,11 @@ def get_saved_places(request):
         saved = Saved.objects.filter(cookie=cookie).last()
         if not saved:
             return HttpResponse("Non existing cookie", status=401)
-        json_saved = serializers.serialize("json", saved.places.all(), fields=('place_id', 'price'))
-        return HttpResponse(content=json_saved, status=200)
+
+        places = [model_to_dict(p) for p in saved.places.all()]
+
+        return HttpResponse(content=json.dumps(places), status=200)
+
     return HttpResponse("Wrong HTTP Method", 401)
 
 
@@ -70,10 +80,14 @@ def save_places(request):
     """
     if not request.method == 'POST':
         return HttpResponse("Wrong HTTP Method", 401)
+
     data = json.loads(request.body)
     saved = Saved.get_or_create(data['cookie'])
 
     for place_id in data['places']:
-        saved.places.add(Place.objects.filter(place_id=place_id).last())
+        place = Place.objects.get(pk=place_id)
+        saved.places.add(place)
+
     saved.save()
+
     return HttpResponse("OK")

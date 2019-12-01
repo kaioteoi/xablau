@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
 
+import { withRouter } from "react-router";
+
 import {makeStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
@@ -38,7 +40,8 @@ const mockData = [{
     // }
 }];
 
-function Matcher() {
+function Matcher(props) {
+    console.log(props);
     const classes = useStyles();
     const [places, setPlaces] = useState([]);
     const [swiperIndex, setSwiperIndex] = useState(0);
@@ -80,4 +83,4 @@ function Matcher() {
 
 Matcher.displayName = 'Matcher';
 
-export default Matcher;
+export default withRouter(Matcher);
