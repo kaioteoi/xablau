@@ -74,3 +74,6 @@ class Photo(models.Model):
     photo_type = models.CharField(max_length=50)
 
     path = models.CharField(max_length=100)
+
+    def get_formatted_url(self):
+        return 'https://content.loft.com.br/homes/{}/desktop_{}'.format(self.place.place_id, self.path)
