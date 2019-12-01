@@ -77,3 +77,15 @@ class Photo(models.Model):
 
     def get_formatted_url(self):
         return 'https://content.loft.com.br/homes/{}/desktop_{}'.format(self.place.place_id, self.path)
+
+
+class Saved(models.Model):
+
+    cookie = models.CharField(max_length=50, db_index=True)
+    places = models.ManyToManyField(Place, related_name='favorite')
+
+    @staticmethod
+    def get_or_create(cookie):
+        saved = Saved.objects.filter(cookie=cookie).last()
+
+        return saved if saved else Saved.objects.create(cookie=cookie)
