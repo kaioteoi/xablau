@@ -62,13 +62,22 @@ def get_saved_places(request):
     if request.method == 'GET':
         cookie = request.GET.get('c')
 
-        saved = Saved.objects.filter(cookie=cookie).last()
-        if not saved:
+        if not cookie:
             return HttpResponse("Non existing cookie", status=401)
 
-        places = [model_to_dict(p) for p in saved.places.all()]
+        saved = Saved.objects.filter(cookie=cookie).last()
 
-        return HttpResponse(content=json.dumps(places), status=200)
+        if not saved:
+            return HttpResponse(content=json.dumps([]))
+
+        places = []
+        for p in saved.places.all():
+            place = model_to_dict(p)
+            place['photos'] = [photo.get_formatted_url()
+                               for photo in p.photo.all()]
+            places.append(place)
+
+        return HttpResponse(content=json.dumps(places))
 
     return HttpResponse("Wrong HTTP Method", 401)
 

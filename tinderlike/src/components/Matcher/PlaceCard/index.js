@@ -37,6 +37,7 @@ function PlaceCard(props) {
                             {`R$ ${place.price && place.price.toLocaleString('pt-br')}`}
                         </Typography>
                     </Grid>
+                    {place.distance && (
                     <Grid container item xs justify="flex-end">
                         <Grid item>
                             <Typography variant="subtitle1" color="textSecondary" component="p">
@@ -44,6 +45,7 @@ function PlaceCard(props) {
                             </Typography>
                         </Grid>
                     </Grid>
+                    )}
                 </Grid>
                 <Grid container>
                     <Grid item>
@@ -72,14 +74,14 @@ PlaceCard.displayName = 'PlaceCard';
 
 PlaceCard.propTypes = {
     place: PropTypes.shape({
-        photos: PropTypes.array,
-        price: PropTypes.number,
-        distance: PropTypes.string,
-        street_name: PropTypes.string,
-        street_type: PropTypes.string,
-        number: PropTypes.string,
-        floor: PropTypes.string,
-        neighborhood: PropTypes.string
+      photos: PropTypes.array,
+      price: PropTypes.number,
+      distance: PropTypes.string,
+      street_name: PropTypes.string,
+      street_type: PropTypes.string,
+      number: PropTypes.string,
+      floor: PropTypes.string,
+      neighborhood: PropTypes.string
     }).isRequired
 };
 
