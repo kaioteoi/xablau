@@ -5,12 +5,20 @@ import {SortableContainer, SortableElement} from 'react-sortable-hoc';
 import arrayMove from 'array-move';
 import { saveOrderRoom } from 'api/local-storage';
 
-const SortableItem = SortableElement(({value}) => <li>{value}</li>);
+const style = {
+    padding: '20px',
+    borderStyle: 'solid',
+    borderWidth: '1px',
+    background: '#FFF',
+    borderColor: '#bdbdbd'
+}
+
+const SortableItem = SortableElement(({value}) => <li style={style}>{value}</li>);
 const SortableList = SortableContainer(({items}) => {
     return (
-      <ul>
+      <ul style={{listStyleType: 'none'}}>
         {items.map((value, index) => (
-          <SortableItem key={`item-${value}`} index={index} value={value} />
+          <SortableItem key={`item-${value}`} index={index} value={value}/>
         ))}
       </ul>
     );
@@ -38,10 +46,10 @@ class PreferenceForm extends Component {
                 <Grid container spacing={4}>
                     <Grid item xs={12}>
                         <Typography variant="h6" gutterBottom>
-                            Escolha suas preferências:
+                            Ordene suas preferências:
                         </Typography>
                         <br />
-                        <SortableList items={this.state.items} onSortEnd={this.onSortEnd} />
+                        <SortableList items={this.state.items} onSortEnd={this.onSortEnd} style={style}/>
                     </Grid>
                 </Grid>
             </React.Fragment>
