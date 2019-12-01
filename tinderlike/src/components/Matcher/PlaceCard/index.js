@@ -63,7 +63,7 @@ function PlaceCard(props) {
                     <Grid container>
                         <Grid item>
                             <Typography variant="h5">
-                                {place.stree_type} {place.street_name} {place.number && `, ${place.number}`}
+                                {place.street_type} {place.street_name} {place.number && `, ${place.number}`}
                             </Typography>
                         </Grid>
                     </Grid>
