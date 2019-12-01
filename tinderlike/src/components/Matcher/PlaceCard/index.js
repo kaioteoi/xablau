@@ -41,7 +41,7 @@ function PlaceCard(props) {
                     <Grid container item xs justify="flex-end">
                         <Grid item>
                             <Typography variant="subtitle1" color="textSecondary" component="p">
-                                <AccessTimeIcon color="primary"/> {place.distance}
+                                <AccessTimeIcon color="primary"/> {Math.round(place.distance)} min
                             </Typography>
                         </Grid>
                     </Grid>

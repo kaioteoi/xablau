@@ -1,14 +1,14 @@
-from django.core import serializers
-from django.shortcuts import render
-from django.core import serializers
-from django.http import HttpResponse
-from django.forms.models import model_to_dict
-from django.views.decorators.csrf import csrf_exempt
-from onboarding.models import Saved, Place
 import json
 import requests
 import urllib
+from decimal import Decimal
+
 import geopy.distance
+from django.http import HttpResponse
+from django.forms.models import model_to_dict
+from django.views.decorators.csrf import csrf_exempt
+
+from onboarding.models import Saved
 from .models import Place
 
 
@@ -45,7 +45,7 @@ def onboarding_submission(request):
                     place['photos'] = [photo.get_formatted_url() for photo in p.photo.all()]
                     places.append(place)
 
-            places = sorted(places, key=lambda i: i['distance'])
+            places = sorted(places, key=lambda i: float(i['distance']))
             return HttpResponse(json.dumps(places))
         return HttpResponse("Bad request", 402)
     return HttpResponse("Wrong HTTP Method", 401)
