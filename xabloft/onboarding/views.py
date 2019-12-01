@@ -24,6 +24,7 @@ def onboarding_submission(request):
     if request.method == 'POST':
         data = json.loads(request.body)
 
+        print(data)
         location = data.get('location')
         distance = data.get('distance')
 

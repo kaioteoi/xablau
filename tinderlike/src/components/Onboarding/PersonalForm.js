@@ -7,11 +7,11 @@ import {saveKids, saveRoom} from 'api/local-storage';
 
 function PersonalForm() {
     const [kids, setKids] = useState(0);
-    const [room, setRoom] = useState(1);
+    const [room, setRoom] = useState(0);
 
     useEffect(() => {
-        saveKids(0);
-        saveRoom(1);
+        saveKids(kids);
+        saveRoom(room);
         // eslint-ignore-next-line
     }, []);
 
@@ -46,6 +46,7 @@ function PersonalForm() {
                             saveRoom(e.target.value);
                         }}
                     >
+                        <MenuItem value={'0'}>0</MenuItem>
                         <MenuItem value={'1'}>1</MenuItem>
                         <MenuItem value={'2'}>2</MenuItem>
                         <MenuItem value={'3'}>3</MenuItem>
