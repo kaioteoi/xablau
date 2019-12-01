@@ -33,12 +33,16 @@ def onboarding_submission(request):
             places = []
             for p in Place.objects.filter(status__in=['FOR_SALE', 'JUST_LISTED']):
                 coords_2 = (p.lat, p.lng)
-                dist = geopy.distance.geodesic(coords_1, coords_2).km * 10
+                dist = geopy.distance.geodesic(coords_1, coords_2).km * 12
                 if dist <= max_dist:
                     place = model_to_dict(p)
                     place['distance'] = dist
+                    # TODO: need to order accordingly with user taste
+                    place['photos'] = [photo.get_formatted_url()
+                                       for photo in Place.objects.last().photo.all()]
                     places.append(place)
 
+    places = sorted(places, key = lambda i: i['distance'])
     return HttpResponse(json.dumps(places))
 
 
