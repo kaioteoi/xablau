@@ -3,10 +3,9 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Select from "@material-ui/core/Select";
 import MenuItem from '@material-ui/core/MenuItem';
-import { saveKids, saveRoom, saveTransport } from 'api/local-storage';
+import { saveKids, saveRoom } from 'api/local-storage';
 
 class PersonalForm extends Component {
-    
     state = {
         kids: 0,
         room: 1,
@@ -16,7 +15,6 @@ class PersonalForm extends Component {
     componentDidMount() {
         saveKids(0);
         saveRoom(1);
-        saveTransport(1);
     }
 
     render() {
@@ -59,22 +57,7 @@ class PersonalForm extends Component {
                             <MenuItem value={'4'}>4+</MenuItem>
                         </Select>
                     </Grid>
-                    <Grid item xs={12}>
-                        <Typography variant="h6" gutterBottom>
-                            Qual seu principal meio de transporte?
-                        </Typography>
-                        <br />
-                        <Select 
-                         labelId={"select-car"} id={"select-car"} value={transport}
-                         onChange={e => {
-                            this.setState({transport: e.target.value});
-                            saveTransport(e.target.value);
-                         }} >
-                            <MenuItem value={'1'}>Automóvel Próprio</MenuItem>
-                            <MenuItem value={'2'}>Transporte Público</MenuItem>
-                            <MenuItem value={'3'}>A pé</MenuItem>
-                        </Select>
-                    </Grid>
+
                 </Grid>
             </React.Fragment>
         )
