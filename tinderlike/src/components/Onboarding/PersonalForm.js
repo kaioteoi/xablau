@@ -28,12 +28,12 @@ class PersonalForm extends Component {
                             Você possui filhos?
                         </Typography>
                         <br />
-                        <Select 
+                        <Select
                          labelId={"Filhos"} id={"select"} value={kids}
                          onChange={e => {
                             this.setState({kids: e.target.value});
                             saveKids(e.target.value);
-                         }} 
+                         }}
                         >
                             <MenuItem value={'1'}>Sim</MenuItem>
                             <MenuItem value={'0'}>Não</MenuItem>
@@ -44,12 +44,12 @@ class PersonalForm extends Component {
                             Quantas pessoas irão morar com você?
                         </Typography>
                         <br />
-                        <Select 
+                        <Select
                          labelId={"living"} id={"select-room"} value={room}
                          onChange={e => {
                              this.setState({room: e.target.value});
                              saveRoom(e.target.value);
-                         }} 
+                         }}
                         >
                             <MenuItem value={'1'}>1</MenuItem>
                             <MenuItem value={'2'}>2</MenuItem>

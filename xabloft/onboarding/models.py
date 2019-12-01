@@ -77,7 +77,8 @@ class Place(models.Model):
         all_photos = self.photo.all()
         photo_list = list()
 
-        ([photo_list.append(photo.get_formatted_url()) for photo in all_photos.filter(photo_type=PHOTO_TYPES_MAP.get(order[0]))])
+        ([photo_list.append(photo.get_formatted_url()) for photo in
+          all_photos.filter(photo_type=PHOTO_TYPES_MAP.get(order[0]))])
         ([photo_list.append(photo.get_formatted_url()) for photo in
           all_photos.filter(photo_type=PHOTO_TYPES_MAP.get(order[1]))])
         ([photo_list.append(photo.get_formatted_url()) for photo in

@@ -107,11 +107,11 @@ function Form() {
                             </Button>
                         )}
                         <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={activeStep === steps.length - 1 ? handleSearch : handleNext}
-                            className={classes.button}>
-                            {activeStep === steps.length - 1 ? "Buscar" : "Avançar"}
+                          variant="contained"
+                          color="primary"
+                          onClick={activeStep === steps.length - 1 ? handleSearch : handleNext}
+                          className={classes.button}>
+                          {activeStep === steps.length - 1 ? "Buscar" : "Avançar"}
                         </Button>
                     </div>
                 </React.Fragment>

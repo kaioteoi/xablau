@@ -29,7 +29,7 @@ const Likes = () => {
 
   return (
       <Grid container spacing={3}>
-      <Typography variant="h4">Seus matches</Typography>
+      <Typography variant="h4">Os queridinhos</Typography>
         {likes.map((place, index) => (
           <Grid key={`place-card-${index}`} item xs={12}>
             <PlaceCard place={place}/>
