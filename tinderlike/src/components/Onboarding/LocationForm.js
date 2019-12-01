@@ -15,7 +15,7 @@ import Select from "@material-ui/core/Select";
 class LocationForm extends React.Component {
   state = {
     transport: 1
-  }
+  };
 
   handleOnChangeLocation = e => {
       saveLocation(e.target.value);

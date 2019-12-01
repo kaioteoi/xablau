@@ -9,7 +9,7 @@ class PersonalForm extends Component {
     state = {
         kids: 0,
         room: 1,
-    }
+    };
 
     componentDidMount() {
         saveKids(0);
@@ -24,7 +24,7 @@ class PersonalForm extends Component {
                 <Grid container spacing={4}>
                     <Grid item xs={12}>
                         <Typography variant="h6" gutterBottom>
-                            Você possui filhos?
+                            Você possui pets?
                         </Typography>
                         <br />
                         <Select
