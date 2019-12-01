@@ -11,12 +11,14 @@ export class LocationForm extends Component {
 				<Typography variant="h6" gutterBottom>
           De onde você quer estar perto?
 				</Typography>
-				<Grid container spacing={24}>
-					<Grid item xs={12} spacing={24}>
+        <br />
+				<Grid container spacing={4}>
+					<Grid item xs={12}>
 						<TextField
 							required
 							id="location"
 							name="location"
+              variant="outlined"
               label="Endereço"
               onChange={handleChange("location")}
               defaultValue={values.location}
@@ -24,9 +26,10 @@ export class LocationForm extends Component {
 							autoComplete="location"
 						/>
 					</Grid>
-					<Grid item xs={12} spacing={24}>
+					<Grid item xs={12}>
 						<TextField
 							required
+              variant="outlined"
               type="number"
 							id="distance"
 							name="distance"

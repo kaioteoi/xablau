@@ -1,9 +1,8 @@
 
 import React from "react";
+import { Redirect } from "react-router-dom";
+import axios from "axios";
 import LocationForm from "./LocationForm";
-// import AccountForm from "./AccountForm";
-// import SocialForm from "./SocialForm";
-// import PersonalDetailsForm from "./PersonalDetailsForm";
 import withStyles from "@material-ui/core/styles/withStyles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -20,38 +19,38 @@ const styles = theme => ({
 	},
 	layout: {
 		width: "auto",
-		marginLeft: theme.spacing.unit * 2,
-		marginRight: theme.spacing.unit * 2,
-		[theme.breakpoints.up(600 + theme.spacing.unit * 2 * 2)]: {
+		marginLeft: theme.spacing(1) * 2,
+		marginRight: theme.spacing(1) * 2,
+		[theme.breakpoints.up(600 + theme.spacing(1) * 2 * 2)]: {
 			width: 600,
 			marginLeft: "auto",
 			marginRight: "auto"
 		}
 	},
 	paper: {
-		marginTop: theme.spacing.unit * 3,
-		marginBottom: theme.spacing.unit * 3,
-		padding: theme.spacing.unit * 2,
-		[theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
-			marginTop: theme.spacing.unit * 6,
-			marginBottom: theme.spacing.unit * 6,
-			padding: theme.spacing.unit * 3
+		marginTop: theme.spacing(1) * 3,
+		marginBottom: theme.spacing(1) * 3,
+		padding: theme.spacing(1) * 2,
+		[theme.breakpoints.up(600 + theme.spacing(1) * 3 * 2)]: {
+			marginTop: theme.spacing(1) * 6,
+			marginBottom: theme.spacing(1) * 6,
+			padding: theme.spacing(1) * 3
 		}
 	},
 	stepper: {
-		padding: `${theme.spacing.unit * 3}px 0 ${theme.spacing.unit * 5}px`
+		padding: `${theme.spacing(1) * 3}px 0 ${theme.spacing(1) * 5}px`
 	},
 	buttons: {
 		display: "flex",
 		justifyContent: "flex-end"
 	},
 	button: {
-		marginTop: theme.spacing.unit * 3,
-		marginLeft: theme.spacing.unit
+		marginTop: theme.spacing(1) * 3,
+		marginLeft: theme.spacing(1)
 	}
 });
 
-const steps = ["Localização", "Social", "Personal"];
+const steps = ["Localização", "Pessoal", "Preferências"];
 
 function getStepContent(step, values, handleChange) {
 	switch (step) {
@@ -60,10 +59,10 @@ function getStepContent(step, values, handleChange) {
 			// return <AccountForm values={values} handleChange={handleChange} />;
 		case 1:
 			// return <SocialForm values={values} handleChange={handleChange} />;
-      return <p>Hello 2</p>;
+      return <p>Form</p>;
 		case 2:
 			// return <PersonalDetailsForm values={values} handleChange={handleChange} />;
-      return <p>Hello 3</p>;
+      return <p>Form</p>;
 		default:
 			throw new Error("Unknown step");
 	}
@@ -72,25 +71,28 @@ function getStepContent(step, values, handleChange) {
 class Form extends React.Component {
 	state = {
 		activeStep: 0,
+    data: null,
 		location: "",
-		distance: "",
-		facebook: "",
-		twitter: "",
-		linkedIn: "",
-		firstName: "",
-		lastName: "",
-		address1: "",
-		address2: "",
-		city: "",
-		state: "",
-		zip: "",
-		country: ""
+		distance: ""
 	};
 
 	handleNext = () => {
 		this.setState(state => ({
 			activeStep: state.activeStep + 1
 		}));
+	};
+
+	handleSearch = () => {
+    const { location, distance } = this.state;
+    axios.post('http://localhost:8000/api/onboarding/', {
+      location, distance
+    })
+      .then((resp) => {
+        this.setState({ data: resp.data })
+      })
+      .catch((error) => {
+        console.log(error);
+      })
 	};
 
 	handleBack = () => {
@@ -105,12 +107,18 @@ class Form extends React.Component {
 
 	render() {
 		const { classes } = this.props;
-		const { activeStep } = this.state;
-		const { location, distance, facebook, twitter, linkedIn, firstName, lastName, address1, address2, city, state, zip, country } = this.state;
-		const values = { location, distance, facebook, twitter, linkedIn, firstName, lastName, address1, address2, city, state, zip, country };
+		const { data, activeStep } = this.state;
+		const { location, distance } = this.state;
+		const values = { location, distance };
 
 		return (
 			<React.Fragment>
+        {data && (
+          <Redirect to={{
+            pathname: '/matcher',
+            state: { data }
+          }} />
+        )}
 				<AppBar position="absolute" color="default" className={classes.appBar}>
 					<Toolbar>
 						<Typography variant="h6" color="inherit">
@@ -131,37 +139,26 @@ class Form extends React.Component {
 							))}
 						</Stepper>
 
-						{activeStep === steps.length ? (
-							<React.Fragment>
-								<Typography variant="h5" gutterBottom>
-									Welcome!
-								</Typography>
-								<Typography variant="subtitle1">
-									Thank you for taking the time to register. We hope you enjoy our community!
-								</Typography>
-							</React.Fragment>
-						) : (
-							<React.Fragment>
-								{getStepContent(activeStep, values, this.handleChange)}
-								<div className={classes.buttons}>
-									{activeStep !== 0 && (
-										<Button
-											onClick={this.handleBack}
-											variant="outlined"
-											className={classes.button}>
-											Voltar
-										</Button>
-									)}
-									<Button
-										variant="contained"
-										color="secondary"
-										onClick={this.handleNext}
-										className={classes.button}>
-										{activeStep === steps.length - 1 ? "Buscar" : "Avançar"}
-									</Button>
-								</div>
-							</React.Fragment>
-						)}
+            <React.Fragment>
+              {getStepContent(activeStep, values, this.handleChange)}
+              <div className={classes.buttons}>
+                {activeStep !== 0 && (
+                  <Button
+                    onClick={this.handleBack}
+                    variant="outlined"
+                    className={classes.button}>
+                    Voltar
+                  </Button>
+                )}
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={activeStep === steps.length - 1 ? this.handleSearch: this.handleNext}
+                  className={classes.button}>
+                  {activeStep === steps.length - 1 ? "Buscar" : "Avançar"}
+                </Button>
+              </div>
+            </React.Fragment>
 					</Paper>
 				</main>
 			</React.Fragment>
