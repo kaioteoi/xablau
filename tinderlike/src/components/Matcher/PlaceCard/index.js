@@ -8,6 +8,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import Slider from "react-slick";
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -19,20 +20,35 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+const settings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1
+};
+
 function PlaceCard(props) {
     const {place} = props;
     const classes = useStyles();
 
+  place.photos.map(photo => {
+    console.log(photo);
+  })
+
     return (
-        <div
-        onClick={() => window.open(`https://loft.com.br/home/${place.place_id}`, '_blank')}>
+        <div>
             <Card>
-            <CardMedia
-                className={classes.media}
-                image={place.photos[0]}
-                title={place.place_id}
-            />
-            <CardContent>
+            <Slider {...settings}>
+              {place.photos.map(photo => (
+                <CardMedia
+                  className={classes.media}
+                  image={photo}
+                  title={place.place_id}
+                />
+              ))}
+            </Slider>
+            <CardContent onClick={() => window.open(`https://loft.com.br/home/${place.place_id}`, '_blank')}>
                 <Grid container spacing={2}>
                     <Grid item xs>
                         <Typography color="primary" variant="h6">
