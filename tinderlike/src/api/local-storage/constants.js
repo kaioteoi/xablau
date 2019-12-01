@@ -4,6 +4,7 @@ const KIDS_KEY = 'kids';
 const ROOM_KEY = 'room'
 const TRANSPORT_KEY = 'transport';
 const ORDER_ROOM_KEY = 'orderRoom';
+export const IDENTIFIER_KEY = 'identifier';
 
 export default {
     LOCATION_KEY,
@@ -11,5 +12,5 @@ export default {
     KIDS_KEY,
     ROOM_KEY,
     TRANSPORT_KEY,
-    ORDER_ROOM_KEY
+    ORDER_ROOM_KEY,
 };

@@ -13,7 +13,7 @@ import {bindKeyboard} from 'react-swipeable-views-utils';
 
 import Reactions from './Reactions';
 import PlaceCard from './PlaceCard';
-import {hasKeys, buildRequest} from 'api/local-storage';
+import {hasKeys, buildRequest, getIdentifier} from 'api/local-storage';
 
 const BindKeyboardSwipeableViews = bindKeyboard(SwipeableViews);
 
@@ -35,8 +35,36 @@ function Matcher() {
     const [places, setPlaces] = useState([]);
     const [swiperIndex, setSwiperIndex] = useState(0);
 
-    const handleSwiperIndexChange = index => {
+    const handleFavoriteOnClick = () => {
+        const index = swiperIndex+1;
+        if (index < places.length) {
+            saveFavorite(index)
+        }
+    };
+
+    const saveFavorite = (index) => {
+        const place = places[index];
+        const data = {
+            places: [place.place_id],
+            cookie: getIdentifier()
+        };
+
+        axios.post('http://localhost:8000/api/save_places/', data)
+            .then(response => {
+                console.log(response);
+                setSwiperIndex(index);
+            })
+            .catch(error => console.log(error));
+    };
+
+    const handleIndex = index => {
+        if (index > places.length) return;
         setSwiperIndex(index);
+        return true;
+    };
+
+    const handleDislikeOnClick = () => {
+        handleIndex(swiperIndex+1);
     };
 
     const getPlaces = () => {
@@ -63,14 +91,16 @@ function Matcher() {
                         <Grid item xs={12} md={8}>
                             <BindKeyboardSwipeableViews
                                 index={swiperIndex}
-                                onSwitching={handleSwiperIndexChange}
+                                onSwitching={handleIndex}
                                 enableMouseEvents
-                                containerStyle={{padding: "10px"}}
                             >
                                 {places.map((place, index) => <PlaceCard key={`place-card-${index}`} place={place}/>)}
                             </BindKeyboardSwipeableViews>
                         </Grid>
-                        <Reactions handleOnRateClick={() => setSwiperIndex(swiperIndex + 1)}/>
+                        <Reactions
+                            handleFavoriteOnClick={handleFavoriteOnClick}
+                            handleDislikeOnClick={handleDislikeOnClick}
+                        />
                     </Grid>
                 </Grid>
             </Container>

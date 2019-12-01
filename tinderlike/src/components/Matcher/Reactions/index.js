@@ -6,16 +6,16 @@ import Fab from "@material-ui/core/Fab";
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 
-function Reactions({ handleOnRateClick }) {
+function Reactions({ handleFavoriteOnClick, handleDislikeOnClick }) {
     return (
         <Grid container direction="row" justify="center" spacing={3}>
             <Grid item>
-                <Fab aria-label="dislike" onClick={handleOnRateClick}>
+                <Fab aria-label="dislike" onClick={handleDislikeOnClick}>
                     <ThumbDownIcon/>
                 </Fab>
             </Grid>
             <Grid item>
-                <Fab color="primary" aria-label="favorite" onClick={handleOnRateClick}>
+                <Fab color="primary" aria-label="favorite" onClick={handleFavoriteOnClick}>
                     <FavoriteIcon/>
                 </Fab>
             </Grid>
@@ -24,7 +24,8 @@ function Reactions({ handleOnRateClick }) {
 }
 
 Reactions.propTypes = {
-    handleOnRateClick: PropTypes.func.isRequired
+    handleFavoriteOnClick: PropTypes.func.isRequired,
+    handleDislikeOnClick: PropTypes.func.isRequired
 };
 
 export default Reactions;

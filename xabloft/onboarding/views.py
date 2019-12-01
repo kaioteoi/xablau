@@ -44,7 +44,6 @@ def onboarding_submission(request):
                     # TODO: need to order accordingly with user taste
                     place['photos'] = [photo.get_formatted_url() for photo in p.photo.all()]
                     places.append(place)
-                    print(place)
 
             places = sorted(places, key=lambda i: i['distance'])
             return HttpResponse(json.dumps(places))
@@ -97,10 +96,11 @@ def save_places(request):
         return HttpResponse("Wrong HTTP Method", 401)
 
     data = json.loads(request.body)
+    print(data)
     saved = Saved.get_or_create(data['cookie'])
 
     for place_id in data['places']:
-        place = Place.objects.get(pk=place_id)
+        place = Place.objects.get(place_id=place_id)
         saved.places.add(place)
 
     saved.save()

@@ -17,6 +17,7 @@ import uuidv4 from 'uuid/v4';
 
 import PATHS from 'components/constants';
 import LocationForm from "./LocationForm";
+import {saveIdentifier, getIdentifier} from 'api/local-storage';
 
 const useStyles = makeStyles(theme => ({
     appBar: {
@@ -87,10 +88,8 @@ function Form() {
     };
 
     useEffect(() => {
-        const cookie = window.localStorage.getItem('cookie');
-
-        if (!cookie) {
-            window.localStorage.setItem('cookie', uuidv4());
+        if (!getIdentifier()) {
+            saveIdentifier(uuidv4())
         }
         // eslint-disable-next-line
     }, []);

@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bc78be4f-e8d0-40ea-8210-7991e154e9b9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../tinderlike/src/app/api/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../tinderlike/src/api/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../tinderlike/src/app/api/local-storage/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/../tinderlike/src/api/local-storage/constants.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../tinderlike/src/app/api/local-storage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../tinderlike/src/api/local-storage/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tinderlike/src/api/local-storage/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/../tinderlike/src/api/local-storage/constants.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tinderlike/src/api/local-storage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../tinderlike/src/api/local-storage/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tinderlike/src/components/Matcher/Reactions/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../tinderlike/src/components/Matcher/Reactions/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tinderlike/src/components/Matcher/apartment_1.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../tinderlike/src/components/Matcher/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../tinderlike/src/components/Matcher/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/onboarding/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/onboarding/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -70,7 +72,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1575191399668</updated>
-      <workItem from="1575191401163" duration="1418000" />
+      <workItem from="1575191401163" duration="2508000" />
     </task>
     <servers />
   </component>
