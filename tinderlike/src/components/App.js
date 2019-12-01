@@ -48,6 +48,6 @@ export default function App() {
                     </Switch>
                 </main>
             </Router>
-            < /ThemeProvider>
-                );
-                };
+        </ThemeProvider>
+    );
+};

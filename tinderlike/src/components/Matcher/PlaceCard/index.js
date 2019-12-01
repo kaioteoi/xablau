@@ -21,66 +21,65 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const settings = {
-  dots: true,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1
 };
 
 function PlaceCard(props) {
+    console.log(props)
     const {place} = props;
     const classes = useStyles();
 
     return (
         <div>
             <Card>
-            <Slider {...settings}>
-              {place.photos.map(photo => (
-                <CardMedia
-                  className={classes.media}
-                  image={photo}
-                  title={place.place_id}
-                />
-              ))}
-            </Slider>
-            <CardContent onClick={() => window.open(`https://loft.com.br/home/${place.place_id}`, '_blank')}>
-                <Grid container spacing={2}>
-                    <Grid item xs>
-                        <Typography color="primary" variant="h6">
-                            {`R$ ${place.price && place.price.toLocaleString('pt-br')}`}
-                        </Typography>
+                <Slider {...settings}>
+                    <CardMedia
+                        className={classes.media}
+                        image={place.photos[0]}
+                        title={place.place_id}
+                    />
+                </Slider>
+                <CardContent onClick={() => window.open(`https://loft.com.br/home/${place.place_id}`, '_blank')}>
+                    <Grid container spacing={2}>
+                        <Grid item xs>
+                            <Typography color="primary" variant="h6">
+                                {`R$ ${place.price && place.price.toLocaleString('pt-br')}`}
+                            </Typography>
+                        </Grid>
+                        {place.distance && (
+                            <Grid container item xs justify="flex-end">
+                                <Grid item>
+                                    <Typography variant="subtitle1" color="textSecondary" component="p">
+                                        <AccessTimeIcon color="primary"/> {Math.round(place.distance)} min
+                                    </Typography>
+                                </Grid>
+                            </Grid>
+                        )}
                     </Grid>
-                    {place.distance && (
-                    <Grid container item xs justify="flex-end">
+                    <Grid container>
                         <Grid item>
-                            <Typography variant="subtitle1" color="textSecondary" component="p">
-                                <AccessTimeIcon color="primary"/> {Math.round(place.distance)} min
+                            <Typography variant="h5">
+                                {place.stree_type} {place.street_name} {place.number && `, ${place.number}`}
                             </Typography>
                         </Grid>
                     </Grid>
-                    )}
-                </Grid>
-                <Grid container>
-                    <Grid item>
-                        <Typography variant="h5">
-                            {place.stree_type} {place.street_name} {place.number && `, ${place.number}`}
-                        </Typography>
+                    <Grid container spacing={2}>
+                        <Grid item xs>
+                            <Typography variant="h6" color="textSecondary"
+                                        display="inline">{place.neighborhood}</Typography>
+                        </Grid>
+                        <Grid item xs>
+                            <Typography variant="h6" color="textSecondary" display="inline">
+                                {`${place.floor} andar`}
+                            </Typography>
+                        </Grid>
                     </Grid>
-                </Grid>
-                <Grid container spacing={2}>
-                    <Grid item xs>
-                        <Typography variant="h6" color="textSecondary"
-                                    display="inline">{place.neighborhood}</Typography>
-                    </Grid>
-                    <Grid item xs>
-                        <Typography variant="h6" color="textSecondary" display="inline">
-                            {`${place.floor} andar`}
-                        </Typography>
-                    </Grid>
-                </Grid>
-            </CardContent>
-        </Card>
+                </CardContent>
+            </Card>
         </div>
     );
 }
@@ -89,14 +88,14 @@ PlaceCard.displayName = 'PlaceCard';
 
 PlaceCard.propTypes = {
     place: PropTypes.shape({
-      photos: PropTypes.array,
-      price: PropTypes.number,
-      distance: PropTypes.string,
-      street_name: PropTypes.string,
-      street_type: PropTypes.string,
-      number: PropTypes.number,
-      floor: PropTypes.number,
-      neighborhood: PropTypes.string
+        photos: PropTypes.array,
+        price: PropTypes.number,
+        distance: PropTypes.string,
+        street_name: PropTypes.string,
+        street_type: PropTypes.string,
+        number: PropTypes.number,
+        floor: PropTypes.number,
+        neighborhood: PropTypes.string
     }).isRequired
 };
 

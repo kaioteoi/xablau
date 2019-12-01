@@ -10,6 +10,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+
 import PATHS from 'components/constants';
 
 const useStyles = makeStyles({
@@ -22,9 +23,9 @@ const useStyles = makeStyles({
 });
 
 const TEXTS = {
-    ONBOARDING: 'Onboarding',
-    MATCHER: 'Matcher',
-    LIKES: 'Likes'
+    ONBOARDING: 'Encontrar meu imóvel',
+    MATCHER: 'Recomendados pra mim',
+    LIKES: 'Os que mais gostei'
 };
 
 const LOCATION_MAP = {

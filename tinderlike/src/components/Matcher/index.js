@@ -1,16 +1,19 @@
 import React, {useState, useEffect} from 'react';
 
 import {withRouter} from "react-router";
+import {useHistory} from 'react-router-dom';
 
 import axios from '../../api';
 
 import {makeStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import Reactions from './Reactions';
 import PlaceCard from './PlaceCard';
 import {hasKeys, buildRequest, getIdentifier} from 'api/local-storage';
+import PATHS from 'components/constants';
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -29,10 +32,12 @@ function Matcher() {
     const classes = useStyles();
     const [places, setPlaces] = useState([]);
     const [index, setIndex] = useState(0);
-    // const [swiperIndex, setSwiperIndex] = useState(0);
+    const [isLoading, setIsLoading] = useState(true);
+    const history = useHistory();
 
-    const handleFavoriteOnClick = (index) => {
+    const handleFavoriteOnClick = index => {
         if (index < places.length) {
+            setIndex(index + 1);
             saveFavorite(index)
         }
     };
@@ -45,30 +50,20 @@ function Matcher() {
         };
 
         axios.post(`/api/save_places/`, data)
-            .then(response => {
-                console.log(response);
-                // setSwiperIndex(index);
-            })
+            .then(() => {})
             .catch(error => console.log(error));
     };
-
-    // const handleIndex = index => {
-    //     if (index > places.length) return;
-    //     setSwiperIndex(index);
-    //     return true;
-    // };
-
-    // const handleDislikeOnClick = () => {
-    //     handleIndex(swiperIndex+1);
-    // };
 
     const getPlaces = () => {
         if (hasKeys()) {
             axios.post('/api/onboarding/', buildRequest())
                 .then(response => {
                     setPlaces(response.data);
+                    setIsLoading(false);
                 })
-                .catch(error => console.log(error))
+                .catch(() => setIsLoading(false))
+        } else {
+            history.push(PATHS.ONBOARDING);
         }
     };
 
@@ -80,23 +75,33 @@ function Matcher() {
     return (
         <React.Fragment>
             <Container className={classes.maxHeight}>
-                <Grid container className={classes.maxHeight} direction="column" justify="center" alignItems="center"
-                      xs={12}>
+                <Grid
+                    container
+                    className={classes.maxHeight}
+                    direction="column"
+                    justify="center"
+                    alignItems="center"
+                    xs={12}
+                >
                     <Grid container direction="row" justify="center">
-                        <Grid item xs={12} md={8}>
-                          {places.length > 0 && (
-                            <PlaceCard key={`place-card-${index}`} place={places[index]}/>
-                          )}
-                        </Grid>
-                        <Reactions
-                          handleFavoriteOnClick={() => {
-                            setIndex(index + 1);
-                            handleFavoriteOnClick(index);
-                          }}
-                          handleDislikeOnClick={() => {
-                            setIndex(index + 1);
-                          }}
-                        />
+                        {isLoading && <CircularProgress color="primary"/>}
+                        {!isLoading && (
+                            <>
+                                <Grid item xs={12} md={8}>
+                                    {places.length > 0 && (
+                                        <PlaceCard key={`place-card-${index}`} place={places[index]}/>
+                                    )}
+                                </Grid>
+                                < Reactions
+                                    handleFavoriteOnClick={() => {
+                                        handleFavoriteOnClick(index);
+                                    }}
+                                    handleDislikeOnClick={() => {
+                                        setIndex(index + 1);
+                                    }}
+                                />
+                            </>
+                        )}
                     </Grid>
                 </Grid>
             </Container>
