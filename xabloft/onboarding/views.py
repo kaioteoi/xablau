@@ -41,8 +41,7 @@ def onboarding_submission(request):
                 if dist <= max_dist:
                     place = model_to_dict(p)
                     place['distance'] = dist
-                    # TODO: need to order accordingly with user taste
-                    place['photos'] = [photo.get_formatted_url() for photo in p.photo.all()]
+                    place['photos'] = p.order_photo(data['orderRoom'].split(','))
                     places.append(place)
 
             places = sorted(places, key=lambda i: float(i['distance']))
