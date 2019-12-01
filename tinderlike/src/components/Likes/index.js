@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import axios from 'axios';
+import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import PlaceCard from '../Matcher/PlaceCard';
 
@@ -27,11 +28,14 @@ const Likes = () => {
 
 
   return (
-    <Grid container direction="column" justify="center" alignItems="center" xs={12}>
-      {likes.map((place, index) => (
-        <PlaceCard key={`place-card-${index}`} place={place}/>
-      ))}
-    </Grid>
+      <Grid container spacing={3}>
+      <Typography variant="h4">Seus matches</Typography>
+        {likes.map((place, index) => (
+          <Grid key={`place-card-${index}`} item xs={12}>
+            <PlaceCard place={place}/>
+          </Grid>
+        ))}
+      </Grid>
   )
 };
 
