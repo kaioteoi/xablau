@@ -79,8 +79,8 @@ PlaceCard.propTypes = {
       distance: PropTypes.string,
       street_name: PropTypes.string,
       street_type: PropTypes.string,
-      number: PropTypes.string,
-      floor: PropTypes.string,
+      number: PropTypes.number,
+      floor: PropTypes.number,
       neighborhood: PropTypes.string
     }).isRequired
 };
