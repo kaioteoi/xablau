@@ -1,6 +1,7 @@
 const PATHS = {
     ONBOARDING: '/',
-    MATCHER: '/matcher'
+    MATCHER: '/matcher',
+    LIKES: '/likes'
 };
 
 export default PATHS;

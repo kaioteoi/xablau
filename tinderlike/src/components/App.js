@@ -38,16 +38,16 @@ export default function App() {
 
     return (
         <ThemeProvider theme={theme}>
-            <MainBar/>
-            <main className={classes.layout}>
-                <Router>
+            <Router>
+                <MainBar/>
+                <main className={classes.layout}>
                     <Switch>
                         <Route path="/likes" render={() => <Likes/>}/>
                         <Route path="/matcher" render={() => <Matcher/>}/>
                         <Route path="/" render={() => <Onboarding/>}/>
                     </Switch>
-                </Router>
-            </main>
-        < /ThemeProvider>
-    );
-};
+                </main>
+            </Router>
+            < /ThemeProvider>
+                );
+                };
