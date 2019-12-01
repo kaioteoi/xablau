@@ -8,14 +8,9 @@ import {makeStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 
-import SwipeableViews from 'react-swipeable-views';
-import {bindKeyboard} from 'react-swipeable-views-utils';
-
 import Reactions from './Reactions';
 import PlaceCard from './PlaceCard';
 import {hasKeys, buildRequest, getIdentifier} from 'api/local-storage';
-
-const BindKeyboardSwipeableViews = bindKeyboard(SwipeableViews);
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -33,10 +28,10 @@ const useStyles = makeStyles(theme => ({
 function Matcher() {
     const classes = useStyles();
     const [places, setPlaces] = useState([]);
-    const [swiperIndex, setSwiperIndex] = useState(0);
+    const [index, setIndex] = useState(0);
+    // const [swiperIndex, setSwiperIndex] = useState(0);
 
-    const handleFavoriteOnClick = () => {
-        const index = swiperIndex+1;
+    const handleFavoriteOnClick = (index) => {
         if (index < places.length) {
             saveFavorite(index)
         }
@@ -52,20 +47,20 @@ function Matcher() {
         axios.post(`/api/save_places/`, data)
             .then(response => {
                 console.log(response);
-                setSwiperIndex(index);
+                // setSwiperIndex(index);
             })
             .catch(error => console.log(error));
     };
 
-    const handleIndex = index => {
-        if (index > places.length) return;
-        setSwiperIndex(index);
-        return true;
-    };
+    // const handleIndex = index => {
+    //     if (index > places.length) return;
+    //     setSwiperIndex(index);
+    //     return true;
+    // };
 
-    const handleDislikeOnClick = () => {
-        handleIndex(swiperIndex+1);
-    };
+    // const handleDislikeOnClick = () => {
+    //     handleIndex(swiperIndex+1);
+    // };
 
     const getPlaces = () => {
         if (hasKeys()) {
@@ -89,17 +84,18 @@ function Matcher() {
                       xs={12}>
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={8}>
-                            <BindKeyboardSwipeableViews
-                                index={swiperIndex}
-                                onSwitching={handleIndex}
-                                enableMouseEvents
-                            >
-                                {places.map((place, index) => <PlaceCard key={`place-card-${index}`} place={place}/>)}
-                            </BindKeyboardSwipeableViews>
+                          {places.length > 0 && (
+                            <PlaceCard key={`place-card-${index}`} place={places[index]}/>
+                          )}
                         </Grid>
                         <Reactions
-                            handleFavoriteOnClick={handleFavoriteOnClick}
-                            handleDislikeOnClick={handleDislikeOnClick}
+                          handleFavoriteOnClick={() => {
+                            setIndex(index + 1);
+                            handleFavoriteOnClick(index);
+                          }}
+                          handleDislikeOnClick={() => {
+                            setIndex(index + 1);
+                          }}
                         />
                     </Grid>
                 </Grid>
