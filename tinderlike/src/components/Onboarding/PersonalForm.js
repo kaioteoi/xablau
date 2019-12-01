@@ -6,9 +6,14 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { saveKids, saveRoom, saveTransport } from 'app/api/local-storage';
 
 class PersonalForm extends Component {
-    render() {
-        const { values, handleChange } = this.props;
+    
+    componentDidMount() {
+        saveKids(0);
+        saveRoom(1);
+        saveTransport(1);
+    }
 
+    render() {
         return (
             <React.Fragment>
                 <Grid container spacing={4}>

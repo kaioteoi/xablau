@@ -19,6 +19,10 @@ const SortableList = SortableContainer(({items}) => {
 class PreferenceForm extends Component {
     state = {items: ['Fachada', 'Quarto', 'Sala de Estar', 'Banheiro', 'Cozinha']};
 
+    componentDidMount() {
+        saveOrderRoom(['Fachada', 'Quarto', 'Sala de Estar', 'Banheiro', 'Cozinha']);
+    }
+
     onSortEnd = ({oldIndex, newIndex}) => {
         this.setState(({items}) => ({
             items: arrayMove(items, oldIndex, newIndex),
