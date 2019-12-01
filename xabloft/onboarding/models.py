@@ -3,6 +3,7 @@ from django.db import models
 STATUS_CHOICES = ('FOR_SALE', 'JUST_LISTED', 'OUT_OF_STOCK', 'DEMOLITION', 'SOLD')
 HAS_CHOICES = ('Sim', 'Não')
 CURRENT_PHASE = ('final_details', 'set_up', 'finishments', 'ready_to_move', 'demolition')
+PHOTO_TYPES = ('facade', 'master_bedroom', 'living', 'bathroom', 'kitchen')
 
 
 # Create your models here.
@@ -63,3 +64,13 @@ class Place(models.Model):
     state = models.CharField(max_length=10)
     lat = models.CharField(max_length=30)
     lng = models.CharField(max_length=30)
+
+
+class Photo(models.Model):
+
+    place = models.ForeignKey(Place, related_name='photo', on_delete=models.CASCADE)
+
+    # facade, master_bedroom, living, bathroom, kitchen
+    photo_type = models.CharField(max_length=50)
+
+    path = models.CharField(max_length=100)
