@@ -15,6 +15,8 @@ import Reactions from './Reactions';
 import PlaceCard from './PlaceCard';
 import {hasKeys, buildRequest, getIdentifier} from 'api/local-storage';
 
+const url = process.env.REACT_APP_BACKEND;
+
 const BindKeyboardSwipeableViews = bindKeyboard(SwipeableViews);
 
 const useStyles = makeStyles(theme => ({
@@ -49,7 +51,7 @@ function Matcher() {
             cookie: getIdentifier()
         };
 
-        axios.post('http://localhost:8000/api/save_places/', data)
+        axios.post(`${url}/api/save_places/`, data)
             .then(response => {
                 console.log(response);
                 setSwiperIndex(index);
@@ -69,7 +71,7 @@ function Matcher() {
 
     const getPlaces = () => {
         if (hasKeys()) {
-            axios.post('http://localhost:8000/api/onboarding/', buildRequest())
+            axios.post(`${url}/api/onboarding/`, buildRequest())
                 .then(response => {
                     setPlaces(response.data);
                 })

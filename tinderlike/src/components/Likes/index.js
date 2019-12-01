@@ -4,6 +4,8 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import PlaceCard from '../Matcher/PlaceCard';
 
+const url = process.env.REACT_APP_BACKEND;
+
 const Likes = () => {
   const [likes, setLikes] = useState([]);
 
@@ -11,7 +13,7 @@ const Likes = () => {
     const cookie = window.localStorage.getItem('cookie');
 
     if (cookie) {
-      axios.get('http://localhost:8000/api/get_saved_places', {
+      axios.get(`${url}/api/get_saved_places`, {
         params: {
           c: cookie
         }
