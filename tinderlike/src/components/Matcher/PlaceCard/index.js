@@ -24,7 +24,9 @@ function PlaceCard(props) {
     const classes = useStyles();
 
     return (
-        <Card>
+        <div
+        onClick={() => window.open(`https://loft.com.br/home/${place.place_id}`, '_blank')}>
+            <Card>
             <CardMedia
                 className={classes.media}
                 image={place.photos[0]}
@@ -67,6 +69,7 @@ function PlaceCard(props) {
                 </Grid>
             </CardContent>
         </Card>
+        </div>
     );
 }
 
