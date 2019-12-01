@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Select from "@material-ui/core/Select";
 import MenuItem from '@material-ui/core/MenuItem';
+import { saveKids, saveRoom, saveTransport } from 'app/api/local-storage';
 
 class PersonalForm extends Component {
     render() {
@@ -18,7 +19,7 @@ class PersonalForm extends Component {
                         <br />
                         <Select 
                          labelId={"Filhos"} id={"select"} value={0}
-                         onChange={handleChange("kids")} 
+                         onChange={e => saveKids(e.target.value)} 
                         >
                             <MenuItem value={'1'}>Sim</MenuItem>
                             <MenuItem value={'0'}>Não</MenuItem>
@@ -31,7 +32,7 @@ class PersonalForm extends Component {
                         <br />
                         <Select 
                          labelId={"living"} id={"select-room"} value={1}
-                         onChange={handleChange("room")} 
+                         onChange={e => saveRoom(e.target.value)} 
                         >
                             <MenuItem value={'1'}>1</MenuItem>
                             <MenuItem value={'2'}>2</MenuItem>
@@ -46,7 +47,7 @@ class PersonalForm extends Component {
                         <br />
                         <Select 
                          labelId={"select-car"} id={"select-car"} value={1}
-                         onChange={handleChange("car")} >
+                         onChange={e => saveTransport(e.target.value)} >
                             <MenuItem value={'1'}>Automóvel Próprio</MenuItem>
                             <MenuItem value={'2'}>Transporte Público</MenuItem>
                             <MenuItem value={'3'}>A pé</MenuItem>

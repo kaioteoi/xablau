@@ -57,16 +57,16 @@ const useStyles = makeStyles(theme => ({
 
 const steps = ["Localização", "Pessoal", "Preferências"];
 
-function getStepContent(step, values, handleChange, handleOrder) {
-	switch (step) {
-		case 0:
-      		return <LocationForm values={values} handleChange={handleChange} />;
-		case 1:
-			return <PersonalDetailsForm values={values} handleChange={handleChange} />;	
-		case 2:
-			return <PreferenceForm values={values} handleOrder={handleOrder} />;
-		default:
-			throw new Error("Unknown step");
+function getStepContent(step) {
+    switch (step) {
+        case 0:
+            return <LocationForm/>;
+        case 1:
+            return <PersonalDetailsForm/>;	
+        case 2:
+            return <PreferenceForm/>;
+        default:
+            throw new Error("Unknown step");
 	}
 }
 

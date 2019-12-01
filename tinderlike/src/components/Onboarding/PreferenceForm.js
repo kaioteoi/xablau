@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import {SortableContainer, SortableElement} from 'react-sortable-hoc';
 import arrayMove from 'array-move';
+import { saveOrderRoom } from 'app/api/local-storage';
 
 const SortableItem = SortableElement(({value}) => <li>{value}</li>);
 const SortableList = SortableContainer(({items}) => {
@@ -23,8 +24,7 @@ class PreferenceForm extends Component {
             items: arrayMove(items, oldIndex, newIndex),
         }), () => {
             const { items } = this.state;
-            const { handleOrder } = this.props;
-            handleOrder(items)
+            saveOrderRoom(items);
         });
     }
 
