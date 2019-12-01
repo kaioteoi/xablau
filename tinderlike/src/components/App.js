@@ -1,28 +1,31 @@
 import React from 'react';
-import Container from '@material-ui/core/Container';
+import { ThemeProvider } from "@material-ui/styles";
+
 import '../App.css';
+import theme from '../theme/main';
 import Onboarding from './Onboarding';
 import Matcher from './Matcher';
 
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
+    BrowserRouter as Router,
+    Switch,
+    Route
 } from "react-router-dom";
 
 
 export default function App() {
-  return (
-    <Router>
-      <Switch>
-        <Route path="/matcher">
-          <Matcher />
-        </Route>
-        <Route path="/">
-          <Onboarding />
-        </Route>
-      </Switch>
-    </Router>
-  );
+    return (
+        <ThemeProvider theme={theme}>
+            <Router>
+                <Switch>
+                    <Route path="/matcher">
+                        <Matcher/>
+                    </Route>
+                    <Route path="/">
+                        <Onboarding/>
+                    </Route>
+                </Switch>
+            </Router>
+        </ThemeProvider>
+    );
 }
