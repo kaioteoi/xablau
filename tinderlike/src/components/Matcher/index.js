@@ -81,7 +81,6 @@ function Matcher() {
                     direction="column"
                     justify="center"
                     alignItems="center"
-                    xs={12}
                 >
                     <Grid container direction="row" justify="center">
                         {isLoading && <CircularProgress color="primary"/>}

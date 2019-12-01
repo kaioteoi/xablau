@@ -41,7 +41,6 @@ function MainBar() {
     const classes = useStyles();
 
     useEffect(() => {
-        console.log(history);
         setSelectedMenu(LOCATION_MAP[history.location.pathname]);
         // eslint-disable-next-line
     }, [history.location.pathname]);

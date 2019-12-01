@@ -29,7 +29,6 @@ const settings = {
 };
 
 function PlaceCard(props) {
-    console.log(props)
     const {place} = props;
     const classes = useStyles();
 
@@ -90,7 +89,7 @@ PlaceCard.propTypes = {
     place: PropTypes.shape({
         photos: PropTypes.array,
         price: PropTypes.number,
-        distance: PropTypes.string,
+        distance: PropTypes.number,
         street_name: PropTypes.string,
         street_type: PropTypes.string,
         number: PropTypes.number,
