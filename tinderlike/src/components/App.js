@@ -1,15 +1,14 @@
 import React from 'react';
-import { ThemeProvider } from "@material-ui/styles";
-import {makeStyles} from "@material-ui/core";
-import Toolbar from "@material-ui/core/Toolbar";
-import AppBar from "@material-ui/core/AppBar";
-import Typography from "@material-ui/core/Typography";
 
-import '../App.css';
+import {ThemeProvider} from "@material-ui/styles";
+import {makeStyles} from "@material-ui/core";
+
 import theme from '../theme/main';
 import Onboarding from './Onboarding';
 import Matcher from './Matcher';
 import Likes from './Likes';
+import MainBar from './MainBar';
+import '../App.css';
 
 import {
     BrowserRouter as Router,
@@ -27,39 +26,28 @@ const useStyles = makeStyles(theme => ({
         marginRight: theme.spacing(1) * 2,
         marginTop: theme.spacing(3),
         [theme.breakpoints.up(600 + theme.spacing(1) * 2 * 2)]: {
-            width: 600,
+            width: 700,
             marginLeft: "auto",
             marginRight: "auto"
         }
     },
-}))
+}));
 
 export default function App() {
-  const classes = useStyles();
-  return (
-    <ThemeProvider theme={theme}>
-        <AppBar position="absolute" color="default" className={classes.appBar}>
-            <Toolbar>
-                <Typography variant="h6" color="inherit">
-                    Deu match!
-                </Typography>
-            </Toolbar>
-        </AppBar>
-        <main className={classes.layout}>
-          <Router>
-              <Switch>
-                  <Route path="/likes">
-                      <Likes />
-                  </Route>
-                  <Route path="/matcher">
-                      <Matcher/>
-                  </Route>
-                  <Route path="/">
-                      <Onboarding/>
-                  </Route>
-              </Switch>
-          </Router>
-        </main>
-    </ThemeProvider>
-  );
-}
+    const classes = useStyles();
+
+    return (
+        <ThemeProvider theme={theme}>
+            <MainBar/>
+            <main className={classes.layout}>
+                <Router>
+                    <Switch>
+                        <Route path="/likes" render={() => <Likes/>}/>
+                        <Route path="/matcher" render={() => <Matcher/>}/>
+                        <Route path="/" render={() => <Onboarding/>}/>
+                    </Switch>
+                </Router>
+            </main>
+        < /ThemeProvider>
+    );
+};

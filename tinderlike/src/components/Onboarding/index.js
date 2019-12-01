@@ -53,7 +53,7 @@ function getStepContent(step) {
             return <PreferenceForm/>;
         default:
             throw new Error("Unknown step");
-	}
+    }
 }
 
 function Form() {
@@ -61,7 +61,7 @@ function Form() {
     const history = useHistory();
 
     const handleNext = () => {
-        setActiveStep(activeStep+1);
+        setActiveStep(activeStep + 1);
     };
 
     const handleSearch = () => {
@@ -69,7 +69,7 @@ function Form() {
     };
 
     const handleBack = () => {
-        setActiveStep(activeStep-1);
+        setActiveStep(activeStep - 1);
     };
 
     useEffect(() => {
@@ -82,41 +82,41 @@ function Form() {
     const classes = useStyles();
 
     return (
-      <React.Fragment>
-          <Paper className={classes.paper}>
-              <Typography component="h1" variant="h4" align="center">
-                  Vamos achar o apê dos sonhos?
-              </Typography>
-              <Stepper activeStep={activeStep} className={classes.stepper}>
-                  {steps.map(label => (
-                      <Step key={label}>
-                          <StepLabel>{label}</StepLabel>
-                      </Step>
-                  ))}
-              </Stepper>
+        <React.Fragment>
+            <Paper className={classes.paper}>
+                <Typography component="h1" variant="h4" align="center">
+                    Vamos achar o apê dos sonhos?
+                </Typography>
+                <Stepper activeStep={activeStep} className={classes.stepper}>
+                    {steps.map(label => (
+                        <Step key={label}>
+                            <StepLabel>{label}</StepLabel>
+                        </Step>
+                    ))}
+                </Stepper>
 
-              <React.Fragment>
-                  {getStepContent(activeStep)}
-                  <div className={classes.buttons}>
-                      {activeStep !== 0 && (
-                          <Button
-                              onClick={handleBack}
-                              variant="outlined"
-                              className={classes.button}>
-                              Voltar
-                          </Button>
-                      )}
-                      <Button
-                          variant="contained"
-                          color="primary"
-                          onClick={activeStep === steps.length - 1 ? handleSearch : handleNext}
-                          className={classes.button}>
-                          {activeStep === steps.length - 1 ? "Buscar" : "Avançar"}
-                      </Button>
-                  </div>
-              </React.Fragment>
-          </Paper>
-      </React.Fragment>
+                <React.Fragment>
+                    {getStepContent(activeStep)}
+                    <div className={classes.buttons}>
+                        {activeStep !== 0 && (
+                            <Button
+                                onClick={handleBack}
+                                variant="outlined"
+                                className={classes.button}>
+                                Voltar
+                            </Button>
+                        )}
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={activeStep === steps.length - 1 ? handleSearch : handleNext}
+                            className={classes.button}>
+                            {activeStep === steps.length - 1 ? "Buscar" : "Avançar"}
+                        </Button>
+                    </div>
+                </React.Fragment>
+            </Paper>
+        </React.Fragment>
     );
 }
 

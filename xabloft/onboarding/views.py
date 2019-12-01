@@ -97,7 +97,7 @@ def save_places(request):
 
     data = json.loads(request.body)
     print(data)
-    saved = Saved.get_or_create(data['identifier'])
+    saved = Saved.get_or_create(data['cookie'])
 
     for place_id in data['places']:
         place = Place.objects.get(place_id=place_id)

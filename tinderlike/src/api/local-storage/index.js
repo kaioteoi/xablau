@@ -1,4 +1,4 @@
-import KEYS, {IDENTIFIER_KEY} from './constants';
+import KEYS, {COOKIE_KEY} from './constants';
 
 const saveLocation = (location) => {
     localStorage.setItem(KEYS.LOCATION_KEY, location)
@@ -27,7 +27,7 @@ const saveOrderRoom = (orderRoom) => {
 };
 
 const saveIdentifier = (identifier) => {
-    localStorage.setItem(IDENTIFIER_KEY, identifier)
+    localStorage.setItem(COOKIE_KEY, identifier)
 };
 
 const getKids = () => localStorage.getItem(KEYS.KIDS_KEY);
@@ -40,7 +40,7 @@ const getOrderRoom = () => localStorage.getItem(KEYS.ORDER_ROOM_KEY);
 
 const getDistance = () => localStorage.getItem(KEYS.DISTANCE_KEY);
 
-const getIdentifier = () => localStorage.getItem(IDENTIFIER_KEY);
+const getIdentifier = () => localStorage.getItem(COOKIE_KEY);
 
 const hasKeys = () => {
     return Object.values(KEYS).every(key => localStorage.getItem(key));
