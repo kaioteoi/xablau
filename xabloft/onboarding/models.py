@@ -5,6 +5,14 @@ HAS_CHOICES = ('Sim', 'Não')
 CURRENT_PHASE = ('final_details', 'set_up', 'finishments', 'ready_to_move', 'demolition')
 PHOTO_TYPES = ('facade', 'master_bedroom', 'living', 'bathroom', 'kitchen')
 
+PHOTO_TYPES_MAP = {
+    'Cozinha': 'kitchen',
+    'Fachada': 'facade',
+    'Quarto': 'master_bedroom',
+    'Sala de Estar': "living",
+    'Banheiro': 'bathroom'
+}
+
 
 # Create your models here.
 class Place(models.Model):
@@ -64,6 +72,21 @@ class Place(models.Model):
     state = models.CharField(max_length=10)
     lat = models.CharField(max_length=30)
     lng = models.CharField(max_length=30)
+
+    def order_photo(self, order):
+        all_photos = self.photo.all()
+        photo_list = list()
+
+        ([photo_list.append(photo.get_formatted_url()) for photo in all_photos.filter(photo_type=PHOTO_TYPES_MAP.get(order[0]))])
+        ([photo_list.append(photo.get_formatted_url()) for photo in
+          all_photos.filter(photo_type=PHOTO_TYPES_MAP.get(order[1]))])
+        ([photo_list.append(photo.get_formatted_url()) for photo in
+          all_photos.filter(photo_type=PHOTO_TYPES_MAP.get(order[2]))])
+        ([photo_list.append(photo.get_formatted_url()) for photo in
+          all_photos.filter(photo_type=PHOTO_TYPES_MAP.get(order[3]))])
+        ([photo_list.append(photo.get_formatted_url()) for photo in
+          all_photos.filter(photo_type=PHOTO_TYPES_MAP.get(order[4]))])
+        return photo_list
 
 
 class Photo(models.Model):
