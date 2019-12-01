@@ -42,3 +42,26 @@ def populate():
             lat=a['address']['lat'],
             lng=a['address']['lng']
         )
+
+
+def populate_photo():
+    import json
+    from onboarding.models import Photo, Place
+
+    with open("apartments.json") as fp:
+        apartments = json.load(fp)
+
+    apartments = apartments['listings']
+    with open("apartments.json") as fp:
+        apartments = json.load(fp)
+
+    apartments = apartments['listings']
+    for apartment in apartments:
+        place = Place.objects.filter(apartment['id']).last()
+        for key, image_array in apartment['images'].items():
+            for image in image_array:
+                Photo.objects.create(
+                    place=place,
+                    photo_type=key,
+                    path=image
+                )
