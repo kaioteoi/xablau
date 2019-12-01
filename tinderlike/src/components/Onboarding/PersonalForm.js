@@ -9,7 +9,6 @@ class PersonalForm extends Component {
     state = {
         kids: 0,
         room: 1,
-        transport: 1
     }
 
     componentDidMount() {
@@ -18,7 +17,7 @@ class PersonalForm extends Component {
     }
 
     render() {
-        const {kids, room, transport} = this.state;
+        const {kids, room} = this.state;
 
         return (
             <React.Fragment>

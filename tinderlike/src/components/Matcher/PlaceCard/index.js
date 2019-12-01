@@ -32,10 +32,6 @@ function PlaceCard(props) {
     const {place} = props;
     const classes = useStyles();
 
-  place.photos.map(photo => {
-    console.log(photo);
-  })
-
     return (
         <div>
             <Card>

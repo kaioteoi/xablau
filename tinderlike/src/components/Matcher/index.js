@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 
 import {withRouter} from "react-router";
 
-import axios from 'axios';
+import axios from '../../api';
 
 import {makeStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -14,8 +14,6 @@ import {bindKeyboard} from 'react-swipeable-views-utils';
 import Reactions from './Reactions';
 import PlaceCard from './PlaceCard';
 import {hasKeys, buildRequest, getIdentifier} from 'api/local-storage';
-
-const url = process.env.REACT_APP_BACKEND;
 
 const BindKeyboardSwipeableViews = bindKeyboard(SwipeableViews);
 
@@ -51,7 +49,7 @@ function Matcher() {
             cookie: getIdentifier()
         };
 
-        axios.post(`${url}/api/save_places/`, data)
+        axios.post(`/api/save_places/`, data)
             .then(response => {
                 console.log(response);
                 setSwiperIndex(index);
@@ -71,7 +69,7 @@ function Matcher() {
 
     const getPlaces = () => {
         if (hasKeys()) {
-            axios.post(`${url}/api/onboarding/`, buildRequest())
+            axios.post('/api/onboarding/', buildRequest())
                 .then(response => {
                     setPlaces(response.data);
                 })
