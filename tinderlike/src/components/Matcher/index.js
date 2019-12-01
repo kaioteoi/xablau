@@ -13,7 +13,7 @@ import {bindKeyboard} from 'react-swipeable-views-utils';
 
 import Reactions from './Reactions';
 import PlaceCard from './PlaceCard';
-import {hasKeys, buildRequest} from 'app/api/local-storage';
+import {hasKeys, buildRequest} from 'api/local-storage';
 
 const BindKeyboardSwipeableViews = bindKeyboard(SwipeableViews);
 

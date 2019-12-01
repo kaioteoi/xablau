@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import {SortableContainer, SortableElement} from 'react-sortable-hoc';
 import arrayMove from 'array-move';
-import { saveOrderRoom } from 'app/api/local-storage';
+import { saveOrderRoom } from 'api/local-storage';
 
 const SortableItem = SortableElement(({value}) => <li>{value}</li>);
 const SortableList = SortableContainer(({items}) => {

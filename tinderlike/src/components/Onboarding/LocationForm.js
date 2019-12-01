@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 
-import {  getLocation, getDistance, saveLocation, saveDistance } from 'app/api/local-storage';
+import {  getLocation, getDistance, saveLocation, saveDistance } from 'api/local-storage';
 
 function LocationForm() {
     const handleOnChangeLocation = e => {

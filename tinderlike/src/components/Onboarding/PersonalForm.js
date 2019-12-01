@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Select from "@material-ui/core/Select";
 import MenuItem from '@material-ui/core/MenuItem';
-import { saveKids, saveRoom, saveTransport } from 'app/api/local-storage';
+import { saveKids, saveRoom, saveTransport } from 'api/local-storage';
 
 class PersonalForm extends Component {
     
