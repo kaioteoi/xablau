@@ -27,20 +27,20 @@ function PlaceCard(props) {
         <Card>
             <CardMedia
                 className={classes.media}
-                image={place.imagePath}
-                title="Paella dish"
+                image={place.photos[0]}
+                title={place.place_id}
             />
             <CardContent>
                 <Grid container spacing={2}>
                     <Grid item xs>
                         <Typography color="primary" variant="h6">
-                            {place.price}
+                            {`R$ ${place.price && place.price.toLocaleString('pt-br')}`}
                         </Typography>
                     </Grid>
                     <Grid container item xs justify="flex-end">
                         <Grid item>
                             <Typography variant="subtitle1" color="textSecondary" component="p">
-                                <AccessTimeIcon color="primary"/> {place.estimatedCommute}
+                                <AccessTimeIcon color="primary"/> {place.distance}
                             </Typography>
                         </Grid>
                     </Grid>
@@ -48,21 +48,19 @@ function PlaceCard(props) {
                 <Grid container>
                     <Grid item>
                         <Typography variant="h5">
-                            {place.address.street} {place.address.number && `, ${place.address.number}`}
+                            {place.stree_type} {place.street_name} {place.number && `, ${place.number}`}
                         </Typography>
                     </Grid>
                 </Grid>
                 <Grid container spacing={2}>
                     <Grid item xs>
-                        <Typography variant="h6" color="textSecondary" display="inline">{place.address.tag}</Typography>
+                        <Typography variant="h6" color="textSecondary"
+                                    display="inline">{place.neighborhood}</Typography>
                     </Grid>
                     <Grid item xs>
-                        <Typography variant="h6" color="textSecondary"
-                                    display="inline">{place.address.vicinity}</Typography>
-                    </Grid>
-                    <Grid item xs>
-                        <Typography variant="h6" color="textSecondary"
-                                    display="inline">{place.address.complement}</Typography>
+                        <Typography variant="h6" color="textSecondary" display="inline">
+                            {`${place.floor} andar`}
+                        </Typography>
                     </Grid>
                 </Grid>
             </CardContent>
@@ -74,17 +72,14 @@ PlaceCard.displayName = 'PlaceCard';
 
 PlaceCard.propTypes = {
     place: PropTypes.shape({
-        iamgePath: PropTypes.string,
-        // TODO: validate if price returns as string
-        price: PropTypes.string,
-        estimatedCommute: PropTypes.string,
-        address: PropTypes.shape({
-            street: PropTypes.string,
-            number: PropTypes.string,
-            tag: PropTypes.string,
-            vicinity: PropTypes.string,
-            complement: PropTypes.string
-        })
+        photos: PropTypes.array,
+        price: PropTypes.number,
+        distance: PropTypes.string,
+        street_name: PropTypes.string,
+        street_type: PropTypes.string,
+        number: PropTypes.string,
+        floor: PropTypes.string,
+        neighborhood: PropTypes.string
     }).isRequired
 };
 

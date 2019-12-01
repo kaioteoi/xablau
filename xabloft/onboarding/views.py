@@ -23,8 +23,12 @@ locationiq_request = {
 def onboarding_submission(request):
     if request.method == 'POST':
         data = json.loads(request.body)
-        locationiq_request['q'] = data['location']
-        max_dist = int(data['distance'])
+
+        location = data.get('location')
+        distance = data.get('distance')
+
+        locationiq_request['q'] = location
+        max_dist = distance and int(distance)
         resp = requests.get(LOCATIONIQ_URL + urllib.parse.urlencode(locationiq_request)).json()
 
         if len(resp) > 0:
@@ -38,12 +42,14 @@ def onboarding_submission(request):
                     place = model_to_dict(p)
                     place['distance'] = dist
                     # TODO: need to order accordingly with user taste
-                    place['photos'] = [photo.get_formatted_url()
-                                       for photo in Place.objects.last().photo.all()]
+                    place['photos'] = [photo.get_formatted_url() for photo in p.photo.all()]
                     places.append(place)
+                    print(place)
 
-    places = sorted(places, key = lambda i: i['distance'])
-    return HttpResponse(json.dumps(places))
+            places = sorted(places, key=lambda i: i['distance'])
+            return HttpResponse(json.dumps(places))
+        return HttpResponse("Bad request", 402)
+    return HttpResponse("Wrong HTTP Method", 401)
 
 
 @csrf_exempt

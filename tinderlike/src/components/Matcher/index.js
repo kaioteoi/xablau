@@ -1,17 +1,21 @@
 import React, {useState, useEffect} from 'react';
 
-import { withRouter } from "react-router";
+import {withRouter} from "react-router";
+
+import axios from 'axios';
 
 import {makeStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 
 import SwipeableViews from 'react-swipeable-views';
+import {bindKeyboard} from 'react-swipeable-views-utils';
 
 import Reactions from './Reactions';
 import PlaceCard from './PlaceCard';
+import {hasKeys, buildRequest} from 'app/api/local-storage';
 
-import image1 from "./apartment_1.jpg";
+const BindKeyboardSwipeableViews = bindKeyboard(SwipeableViews);
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -26,22 +30,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const mockData = [{
-    // fields: {
-    price: "R$ 1.760.000,00",
-    estimatedCommute: "30 min",
-    imagePath: image1,
-    address: {
-        street: "Alameda Jaú",
-        number: "1780",
-        complement: "Apto 41",
-        vicinity: "Jardim Paulista"
-    }
-    // }
-}];
-
-function Matcher(props) {
-    console.log(props);
+function Matcher() {
     const classes = useStyles();
     const [places, setPlaces] = useState([]);
     const [swiperIndex, setSwiperIndex] = useState(0);
@@ -51,8 +40,13 @@ function Matcher(props) {
     };
 
     const getPlaces = () => {
-        // TODO: receive API response here
-        setPlaces(mockData);
+        if (hasKeys()) {
+            axios.post('http://localhost:8000/api/onboarding/', buildRequest())
+                .then(response => {
+                    setPlaces(response.data);
+                })
+                .catch(error => console.log(error))
+        }
     };
 
     useEffect(() => {
@@ -65,14 +59,17 @@ function Matcher(props) {
             <Container className={classes.maxHeight}>
                 <Grid container className={classes.maxHeight} direction="column" justify="center" alignItems="center"
                       xs={12}>
-                    <Grid container direction="column" justify="center" xs={12} md={8}>
-                        <SwipeableViews
-                            index={swiperIndex}
-                            onSwitching={handleSwiperIndexChange}
-                            enableMouseEvents
-                        >
-                            {places.map((place, index) => <PlaceCard key={`place-card-${index}`} place={place}/>)}
-                        </SwipeableViews>
+                    <Grid container direction="row" justify="center">
+                        <Grid item xs={12} md={8}>
+                            <BindKeyboardSwipeableViews
+                                index={swiperIndex}
+                                onSwitching={handleSwiperIndexChange}
+                                enableMouseEvents
+                                containerStyle={{padding: "10px"}}
+                            >
+                                {places.map((place, index) => <PlaceCard key={`place-card-${index}`} place={place}/>)}
+                            </BindKeyboardSwipeableViews>
+                        </Grid>
                         <Reactions handleOnRateClick={() => setSwiperIndex(swiperIndex + 1)}/>
                     </Grid>
                 </Grid>
