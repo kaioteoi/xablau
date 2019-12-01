@@ -20,6 +20,6 @@ from onboarding import views
 urlpatterns = [
     path('api/onboarding/', views.onboarding_submission),
     path('api/get_saved_places/', views.get_saved_places),
-    path('api/save_places', views.save_places),
+    path('api/save_places/', views.save_places),
     path('admin/', admin.site.urls),
 ]

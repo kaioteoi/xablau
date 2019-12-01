@@ -60,8 +60,6 @@ def get_saved_places(request):
         if not saved:
             return HttpResponse("Non existing cookie", status=401)
 
-        json_saved = serializers.serialize("json", )
-
         places = [model_to_dict(p) for p in saved.places.all()]
 
         return HttpResponse(content=json.dumps(places), status=200)
@@ -87,6 +85,9 @@ def save_places(request):
     saved = Saved.get_or_create(data['cookie'])
 
     for place_id in data['places']:
-        saved.places.add(Place.objects.filter(place_id=place_id).last())
+        place = Place.objects.get(pk=place_id)
+        saved.places.add(place)
+
     saved.save()
+
     return HttpResponse("OK")
