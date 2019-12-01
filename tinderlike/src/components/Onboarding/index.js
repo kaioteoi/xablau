@@ -12,6 +12,8 @@ import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
+import PersonalDetailsForm from './PersonalForm';
+import PreferenceForm from './PreferenceForm';
 
 const styles = theme => ({
 	appBar: {
@@ -52,17 +54,14 @@ const styles = theme => ({
 
 const steps = ["Localização", "Pessoal", "Preferências"];
 
-function getStepContent(step, values, handleChange) {
+function getStepContent(step, values, handleChange, handleOrder) {
 	switch (step) {
 		case 0:
-      return <LocationForm values={values} handleChange={handleChange} />
-			// return <AccountForm values={values} handleChange={handleChange} />;
+      		return <LocationForm values={values} handleChange={handleChange} />;
 		case 1:
-			// return <SocialForm values={values} handleChange={handleChange} />;
-      return <p>Form</p>;
+			return <PersonalDetailsForm values={values} handleChange={handleChange} />;	
 		case 2:
-			// return <PersonalDetailsForm values={values} handleChange={handleChange} />;
-      return <p>Form</p>;
+			return <PreferenceForm values={values} handleOrder={handleOrder} />;
 		default:
 			throw new Error("Unknown step");
 	}
@@ -102,8 +101,14 @@ class Form extends React.Component {
 	};
 
 	handleChange = input => e => {
+		console.log("HandleChagne", e.target.value, "input", input);
 		this.setState({ [input]: e.target.value });
 	};
+
+	handleOrder = order => {
+		console.log('roomOrder: ', order);
+		this.setState({ roomOrder: order });
+	}
 
 	render() {
 		const { classes } = this.props;
@@ -140,7 +145,7 @@ class Form extends React.Component {
 						</Stepper>
 
             <React.Fragment>
-              {getStepContent(activeStep, values, this.handleChange)}
+              {getStepContent(activeStep, values, this.handleChange, this.handleOrder)}
               <div className={classes.buttons}>
                 {activeStep !== 0 && (
                   <Button
@@ -167,4 +172,3 @@ class Form extends React.Component {
 }
 
 export default withStyles(styles)(Form);
-
