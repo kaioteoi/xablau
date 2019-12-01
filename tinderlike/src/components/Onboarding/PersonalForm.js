@@ -7,6 +7,12 @@ import { saveKids, saveRoom, saveTransport } from 'api/local-storage';
 
 class PersonalForm extends Component {
     
+    state = {
+        kids: 0,
+        room: 1,
+        transport: 1
+    }
+
     componentDidMount() {
         saveKids(0);
         saveRoom(1);
@@ -14,6 +20,8 @@ class PersonalForm extends Component {
     }
 
     render() {
+        const {kids, room, transport} = this.state;
+
         return (
             <React.Fragment>
                 <Grid container spacing={4}>
@@ -23,8 +31,11 @@ class PersonalForm extends Component {
                         </Typography>
                         <br />
                         <Select 
-                         labelId={"Filhos"} id={"select"} value={0}
-                         onChange={e => saveKids(e.target.value)} 
+                         labelId={"Filhos"} id={"select"} value={kids}
+                         onChange={e => {
+                            this.setState({kids: e.target.value});
+                            saveKids(e.target.value);
+                         }} 
                         >
                             <MenuItem value={'1'}>Sim</MenuItem>
                             <MenuItem value={'0'}>Não</MenuItem>
@@ -36,8 +47,11 @@ class PersonalForm extends Component {
                         </Typography>
                         <br />
                         <Select 
-                         labelId={"living"} id={"select-room"} value={1}
-                         onChange={e => saveRoom(e.target.value)} 
+                         labelId={"living"} id={"select-room"} value={room}
+                         onChange={e => {
+                             this.setState({room: e.target.value});
+                             saveRoom(e.target.value);
+                         }} 
                         >
                             <MenuItem value={'1'}>1</MenuItem>
                             <MenuItem value={'2'}>2</MenuItem>
@@ -51,8 +65,11 @@ class PersonalForm extends Component {
                         </Typography>
                         <br />
                         <Select 
-                         labelId={"select-car"} id={"select-car"} value={1}
-                         onChange={e => saveTransport(e.target.value)} >
+                         labelId={"select-car"} id={"select-car"} value={transport}
+                         onChange={e => {
+                            this.setState({transport: e.target.value});
+                            saveTransport(e.target.value);
+                         }} >
                             <MenuItem value={'1'}>Automóvel Próprio</MenuItem>
                             <MenuItem value={'2'}>Transporte Público</MenuItem>
                             <MenuItem value={'3'}>A pé</MenuItem>
