@@ -8,7 +8,7 @@ import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 
 function Reactions({ handleFavoriteOnClick, handleDislikeOnClick }) {
     return (
-        <Grid container direction="row" justify="center" spacing={3}>
+        <Grid container direction="row" justify="center" spacing={3} style={{margin: '0'}}>
             <Grid item>
                 <Fab aria-label="dislike" onClick={handleDislikeOnClick}>
                     <ThumbDownIcon/>
