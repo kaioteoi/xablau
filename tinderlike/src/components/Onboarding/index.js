@@ -12,6 +12,8 @@ import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
+import uuidv4 from 'uuid/v4';
+
 
 const styles = theme => ({
 	appBar: {
@@ -98,10 +100,15 @@ class Form extends React.Component {
 
 	handleChange = input => e => {
 		this.setState({ [input]: e.target.value });
-	};
+	}
 
   componentDidMount() {
-    const data = JSON.parse(localStorage.getItem('onboarding'))
+    const data = JSON.parse(window.localStorage.getItem('onboarding'))
+    const cookie = window.localStorage.getItem('cookie')
+
+    if (!cookie) {
+      window.localStorage.setItem('cookie', uuidv4());
+    }
 
     if (data) {
       this.setState({ done: true })

@@ -5,6 +5,7 @@ import '../App.css';
 import theme from '../theme/main';
 import Onboarding from './Onboarding';
 import Matcher from './Matcher';
+import Likes from './Likes';
 
 import {
     BrowserRouter as Router,
@@ -18,6 +19,9 @@ export default function App() {
         <ThemeProvider theme={theme}>
             <Router>
                 <Switch>
+                    <Route path="/likes">
+                        <Likes />
+                    </Route>
                     <Route path="/matcher">
                         <Matcher/>
                     </Route>
